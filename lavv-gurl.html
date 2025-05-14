@@ -28,9 +28,9 @@
     .container {
       text-align: center;
       padding: 20px;
-      border: 6px solid black; /* Thicker black outline */
+      border: 6px solid black;
       border-radius: 10px;
-      background-color: #8A5D99; /* Darker background inside container */
+      background-color: #8A5D99;
       transition: background-color 1s ease, border 1s ease;
     }
 
@@ -82,19 +82,47 @@
       display: none;
       margin-left: auto;
       margin-right: auto;
-      box-shadow: 0 0 20px 5px white; /* Glow effect */
+      box-shadow: 0 0 20px 5px white;
       border-radius: 10px;
+      width: 300px;
     }
 
     audio {
       display: none;
     }
+
+    /* Mobile Responsive Styling */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+
+      .container {
+        width: 90%;
+        padding: 15px;
+      }
+
+      #finalGif {
+        width: 90%;
+        max-width: 300px;
+      }
+
+      #finalMessage {
+        font-size: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Using your Vocaroo link -->
   <audio id="backgroundAudio">
-    <source src="SpotifyMate.com - Your Eyes - Barney Sku.mp3" type="audio/mpeg">
+    <source src="https://voca.ro/1fL4Dvdgg3Y4.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
@@ -103,7 +131,7 @@
     <button class="yes" onclick="respond('Yes')">Yes</button>
     <button class="no" id="noButton" onclick="changeNoText()">No</button>
     <div id="finalMessage"></div>
-    <img id="finalGif" src="https://media.giphy.com/media/xTiTnHvXHHxOTcdmxO/giphy.gif" width="300">
+    <img id="finalGif" src="https://media.giphy.com/media/xTiTnHvXHHxOTcdmxO/giphy.gif">
   </div>
 
   <script>
@@ -130,7 +158,9 @@
 
     function playAudio() {
       if (audio.paused) {
-        audio.play();
+        audio.play().catch(e => {
+          console.log("Audio play blocked until interaction.");
+        });
       }
     }
 
@@ -155,7 +185,7 @@
         if (noTextChanges[noClicks] === "Duuuuh") {
           noButton.classList.add("rgb");
 
-          // Switch to dark mode
+          // Activate dark mode
           document.body.style.backgroundColor = "black";
           container.style.backgroundColor = "black";
           container.style.border = "6px solid white";
